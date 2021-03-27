@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
+import { Weather } from '../models/weather.model';
 
 const base_url = environment.base_url_api;
 
@@ -20,7 +21,7 @@ export class WeatherService {
     const _URL = `${ base_url }?q=${_CITY}&appid=${_APPID}`;
     return this.http.get( _URL)
               .pipe(
-                map( (resp: any) => resp )
+                map( (resp: {main: Weather }) => resp.main )
               );
   }
 }
