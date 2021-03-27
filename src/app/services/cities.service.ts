@@ -26,7 +26,6 @@ export class CitiesService {
   getCities() {
 
     const url = `${ base_url_SandBox }/cities`;
-    console.log(url);
     return this.http.get( url, this.headers )
               .pipe(
                 map( (resp: {ok: boolean, cities: City[] }) => resp.cities )
