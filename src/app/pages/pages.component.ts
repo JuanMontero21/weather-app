@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CitiesService } from '../services/cities.service';
+
+import { City } from '../models/city.model';
 
 @Component({
   selector: 'app-pages',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PagesComponent implements OnInit {
 
-  constructor() { }
+  public cities: City[];
+
+  constructor( private citiesService: CitiesService) { }
+
 
   ngOnInit(): void {
+    this.citiesService.getCities()
+      .subscribe( (resp: City[]) => {
+        this.cities = resp;
+        console.log(this.cities);
+      })
   }
 
 }
