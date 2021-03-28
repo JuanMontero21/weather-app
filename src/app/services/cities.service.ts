@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { City } from '../models/city.model';
 
 
-const base_url_SandBox = environment.base_url_SandBox;
+const _BASE_URL = environment.base_url_SandBox;
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +25,8 @@ export class CitiesService {
 
   getCities() {
 
-    const url = `${ base_url_SandBox }/cities`;
-    return this.http.get( url, this.headers )
+    const URL = `${ _BASE_URL }/cities`;
+    return this.http.get( URL, this.headers )
               .pipe(
                 map( (resp: {ok: boolean, cities: City[] }) => resp.cities )
               );

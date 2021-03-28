@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { CitiesService } from '../services/cities.service';
 import { WeatherService } from '../services/weather.service';
 
@@ -11,7 +11,7 @@ import { Weather } from '../models/weather.model';
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.css']
 })
-export class PagesComponent implements OnInit {
+export class PagesComponent implements OnInit, OnChanges {
 
   public cities: City[];
   public cityWeather: Weather;
@@ -37,14 +37,20 @@ export class PagesComponent implements OnInit {
       .subscribe( (resp: City[]) => {
         this.cities = resp;
         console.log(this.cities);
-        // TODO: Mezclar el array de forma aleatoria
         // TODO: Llamar al servicio weather cada 15 segundos con una ciudad aleatoria diferente cada vez
-        this.weatherService.getWeatherByCityName(this.cities[0].name)
+        this.weatherService.getWeatherByCityName(this.cities)
         .subscribe ((resp: Weather) => {
           this.cityWeather = resp;
           console.log(this.cityWeather);
+          // TODO: logica para sacar el alert con el aviso del criterio
         })
       });
+  }
+
+  ngOnChanges(): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    console.log(this.cities);
   }
 
 }
