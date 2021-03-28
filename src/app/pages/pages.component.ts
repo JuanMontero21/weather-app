@@ -15,7 +15,6 @@ export class PagesComponent implements OnInit {
 
   public cities: City[];
   public cityWeather: Weather;
-  public city: string
 
   constructor( private citiesService: CitiesService,
               private weatherService: WeatherService 
@@ -40,10 +39,10 @@ export class PagesComponent implements OnInit {
         console.log(this.cities);
         // TODO: Mezclar el array de forma aleatoria
         // TODO: Llamar al servicio weather cada 15 segundos con una ciudad aleatoria diferente cada vez
-        this.city = this.cities[0].name
         this.weatherService.getWeatherByCityName(this.cities[0].name)
-        .subscribe ((resp) => {
-          console.log(resp);
+        .subscribe ((resp: Weather) => {
+          this.cityWeather = resp;
+          console.log(this.cityWeather);
         })
       });
   }
