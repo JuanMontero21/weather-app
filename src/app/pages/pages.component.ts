@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CitiesService } from '../services/cities.service';
 import { WeatherService } from '../services/weather.service';
 
 // Models
 import { City } from '../models/city.model';
 import { Weather } from '../models/weather.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.css']
 })
-export class PagesComponent implements OnInit {
+export class PagesComponent implements OnInit, OnDestroy {
 
   public cities: City[];
   public cityWeather: Weather;
@@ -19,6 +20,8 @@ export class PagesComponent implements OnInit {
   public months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   public today = {name: '', dayNumber: ''};
   public icon = '';
+  private citiesSubscription: Subscription;
+  private weatherSubscription: Subscription;
 
   constructor( private citiesService: CitiesService,
               private weatherService: WeatherService 
@@ -31,16 +34,18 @@ export class PagesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.citiesService.getCities()
+    this.citiesSubscription = this.citiesService.getCities()
       .subscribe( (resp: City[]) => {
         this.cities = resp;
         console.log(this.cities);
         this.callWeatherService(this.cities);
+      }, error => {
+        console.error('Error: ', error);
       });
   }
 
   callWeatherService(cities: City[]){
-    this.weatherService.getWeatherByCityName(this.cities)
+    this.weatherSubscription = this.weatherService.getWeatherByCityName(this.cities)
     .subscribe ((resp: Weather) => {
       this.cityWeather = resp;
       console.log(this.cityWeather);
@@ -51,7 +56,9 @@ export class PagesComponent implements OnInit {
         console.log(`Alert in ${this.cityWeather.name} city`);
       }
       this.recursive(cities);
-    })
+    }, error =>{
+      console.error('Error :', error)
+    });
   }
 
   recursive(cities: City[]){
@@ -60,6 +67,10 @@ export class PagesComponent implements OnInit {
     }, 15000);
   };
 
-  // TODO: onDestroy
+  ngOnDestroy(): void {
+    this.citiesSubscription.unsubscribe();
+    this.weatherSubscription.unsubscribe();
+    
+  }
 
 }

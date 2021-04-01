@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// TODO: Cambiar esto al componente home ??
 import { HttpClientModule } from '@angular/common/http';
 // Modules
 import { RouterModule } from '@angular/router';

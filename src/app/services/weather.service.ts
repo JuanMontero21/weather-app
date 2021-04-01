@@ -7,7 +7,7 @@ import { Weather } from '../models/weather.model';
 import { Observable } from 'rxjs';
 import { City } from '../models/city.model';
 
-const base_url = environment.base_url_api;
+const _BASE_URL = environment.base_url_api;
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class WeatherService {
       city = _CITIES[Math.floor(Math.random() * _CITIES.length)].name;
     }
     console.log(city);
-    const _URL = `${ base_url }?q=${city}&appid=${_APPID}&units=metric`;
+    const _URL = `${ _BASE_URL }?q=${city}&appid=${_APPID}&units=metric`;
     return this.http.get( _URL)
               .pipe(
                 map( (resp: Weather) => resp )
