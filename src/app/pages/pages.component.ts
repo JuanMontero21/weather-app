@@ -28,7 +28,6 @@ export class PagesComponent implements OnInit, OnDestroy {
               ) { 
                 let day = new Date();
                 this.today.name = this.days[day.getDay()];
-                console.log(day.getMonth);
                 this.today.dayNumber = `${day.getDate()} ${this.months[day.getMonth()]}`
               }
 
@@ -37,7 +36,6 @@ export class PagesComponent implements OnInit, OnDestroy {
     this.citiesSubscription = this.citiesService.getCities()
       .subscribe( (resp: City[]) => {
         this.cities = resp;
-        console.log(this.cities);
         this.callWeatherService(this.cities);
       }, error => {
         console.error('Error: ', error);
@@ -48,10 +46,12 @@ export class PagesComponent implements OnInit, OnDestroy {
     this.weatherSubscription = this.weatherService.getWeatherByCityName(this.cities)
     .subscribe ((resp: Weather) => {
       this.cityWeather = resp;
-      console.log(this.cityWeather);
+      const temp_min = 8;
+      const temp_max = 28;
+      const humidity_max = 70;
       this.icon = `http://openweathermap.org/img/wn/${this.cityWeather.weather[0].icon}@2x.png`
-      if((this.cityWeather.main.temp > 8 && this.cityWeather.main.temp < 28) && 
-          this.cityWeather.main.humidity > 70) {
+      if((this.cityWeather.main.temp > temp_min && this.cityWeather.main.temp < temp_max) && 
+          this.cityWeather.main.humidity > humidity_max) {
         // window.alert(`Alert in ${this.cityWeather.name} city`);
         console.log(`Alert in ${this.cityWeather.name} city`);
       }
