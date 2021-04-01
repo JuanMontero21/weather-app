@@ -15,23 +15,21 @@ export class PagesComponent implements OnInit {
 
   public cities: City[];
   public cityWeather: Weather;
+  public days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  public months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  public today = {name: '', dayNumber: ''};
+  public icon = '';
 
   constructor( private citiesService: CitiesService,
               private weatherService: WeatherService 
-              ) { }
+              ) { 
+                let day = new Date();
+                this.today.name = this.days[day.getDay()];
+                console.log(day.getMonth);
+                this.today.dayNumber = `${day.getDate()} ${this.months[day.getMonth()]}`
+              }
 
-  // TODO: Posiblemente este no sea el hook a utilizas ngOnChange ??
   ngOnInit(): void {
-    // const cityResponse = this.citiesService.getCities()
-    //   .subscribe( (resp: City[]) => {
-    //     this.cities = resp;
-    //     console.log(this.cities);
-    //   });
-
-    // const weatherResponse = this.weatherService.getWeatherByCityName(this.cities[0].name)
-    // .subscribe (resp => {
-    //   console.log(resp);
-    // })
 
     this.citiesService.getCities()
       .subscribe( (resp: City[]) => {
@@ -42,12 +40,16 @@ export class PagesComponent implements OnInit {
   }
 
   callWeatherService(cities: City[]){
-    // TODO: Llamar al servicio weather cada 15 segundos con una ciudad aleatoria diferente cada vez
     this.weatherService.getWeatherByCityName(this.cities)
     .subscribe ((resp: Weather) => {
       this.cityWeather = resp;
       console.log(this.cityWeather);
-      // TODO: logica para sacar el alert con el aviso del criterio
+      this.icon = `http://openweathermap.org/img/wn/${this.cityWeather.weather[0].icon}@2x.png`
+      if((this.cityWeather.main.temp > 8 && this.cityWeather.main.temp < 28) && 
+          this.cityWeather.main.humidity > 70) {
+        // window.alert(`Alert in ${this.cityWeather.name} city`);
+        console.log(`Alert in ${this.cityWeather.name} city`);
+      }
       this.recursive(cities);
     })
   }
