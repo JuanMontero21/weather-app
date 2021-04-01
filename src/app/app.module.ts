@@ -6,10 +6,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { PagesModule } from './pages/pages.module';
 
 import { AppComponent } from './app.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule,
