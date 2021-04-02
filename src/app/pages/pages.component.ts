@@ -26,6 +26,7 @@ export class PagesComponent implements OnInit, OnDestroy {
   constructor( private citiesService: CitiesService,
               private weatherService: WeatherService 
               ) { 
+                /* istanbul ignore next */
                 let day = new Date();
                 this.today.name = this.days[day.getDay()];
                 this.today.dayNumber = `${day.getDate()} ${this.months[day.getMonth()]}`
@@ -33,13 +34,24 @@ export class PagesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    this.getCities();
+    // this.citiesSubscription = this.citiesService.getCities()
+    //   .subscribe( (resp: City[]) => {
+    //     this.cities = resp;
+    //     this.callWeatherService(this.cities);
+    //   }, error => {
+    //     console.error('Error: ', error);
+    //   });
+  }
+
+  getCities(){
     this.citiesSubscription = this.citiesService.getCities()
-      .subscribe( (resp: City[]) => {
-        this.cities = resp;
-        this.callWeatherService(this.cities);
-      }, error => {
-        console.error('Error: ', error);
-      });
+    .subscribe( (resp: City[]) => {
+      this.cities = resp;
+      this.callWeatherService(this.cities);
+    }, error => {
+      console.error('Error: ', error);
+    });
   }
 
   callWeatherService(cities: City[]){
