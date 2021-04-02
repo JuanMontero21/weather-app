@@ -23,7 +23,6 @@ export class WeatherService {
     for (let item = 0; item < _CITIES.length; item++) {
       city = _CITIES[Math.floor(Math.random() * _CITIES.length)].name;
     }
-    console.log(city);
     const _URL = `${ _BASE_URL }?q=${city}&appid=${_APPID}&units=metric`;
     return this.http.get( _URL)
               .pipe(

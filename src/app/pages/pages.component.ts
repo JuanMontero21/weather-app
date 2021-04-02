@@ -52,8 +52,7 @@ export class PagesComponent implements OnInit, OnDestroy {
       this.icon = `http://openweathermap.org/img/wn/${this.cityWeather.weather[0].icon}@2x.png`
       if((this.cityWeather.main.temp > temp_min && this.cityWeather.main.temp < temp_max) && 
           this.cityWeather.main.humidity > humidity_max) {
-        // window.alert(`Alert in ${this.cityWeather.name} city`);
-        console.log(`Alert in ${this.cityWeather.name} city`);
+        window.alert(`Alert in ${this.cityWeather.name} city`);
       }
       this.recursive(cities);
     }, error =>{

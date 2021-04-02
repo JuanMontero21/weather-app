@@ -1340,7 +1340,7 @@
      content: " ";
      width: 7px;
      height: 9px;
-     background: url(images/arrow-down.png);
+     background: url(assets/images/arrow-down.png);
      position: absolute;
      right: 10px;
      top: 0;
@@ -1374,7 +1374,7 @@
        top: 0;
        bottom: 0;
        margin: auto;
-       background: url(images/play-button.png); }
+       background: url(assets/images/play-button.png); }
      .live-camera .live-camera-cover img {
        display: block;
        width: 100%;
@@ -1393,7 +1393,7 @@
      content: " ";
      width: 12px;
      height: 7px;
-     background: url(images/arrow.png);
+     background: url(assets/images/arrow.png);
      display: block; }
    .news .date {
      position: absolute;
@@ -1417,7 +1417,7 @@
        content: " ";
        width: 12px;
        height: 7px;
-       background: url(images/arrow.png);
+       background: url(assets/images/arrow.png);
        position: absolute;
        left: 0;
        top: 5px; }
@@ -1427,7 +1427,7 @@
        color: white; }
  
  .arrow-list {
-   list-style-image: url(images/arrow.png);
+   list-style-image: url(assets/images/arrow.png);
    list-style-position: inside; }
    .arrow-list li {
      padding: 10px 0;
@@ -1465,7 +1465,7 @@
        vertical-align: middle;
        width: 12px;
        height: 7px;
-       background: url(images/arrow-gray.png) no-repeat;
+       background: url(assets/images/arrow-gray.png) no-repeat;
        margin: 0 10px; }
      .breadcrumb a:hover {
        text-decoration: underline; }
@@ -1503,7 +1503,7 @@
      content: " ";
      width: 30px;
      height: 23px;
-     background: url(images/quote.png);
+     background: url(assets/images/quote.png);
      position: absolute;
      top: 0;
      left: 0; }
