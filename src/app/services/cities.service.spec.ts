@@ -7,7 +7,6 @@ import { City } from '../models/city.model';
 describe('CitiesService', () => {
   let service: CitiesService;
   let httpClientSpy: { get: jasmine.Spy };
-  let httpClient: HttpClient;
 
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
@@ -16,7 +15,6 @@ describe('CitiesService', () => {
       providers: [CitiesService, HttpClient]
     });   
     service = TestBed.inject(CitiesService);
-    httpClient = TestBed.inject(HttpClient);
   });
 
   it('should be created', () => {

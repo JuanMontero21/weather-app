@@ -1,5 +1,5 @@
 import { HttpClient, HttpHandler } from '@angular/common/http';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { CitiesService } from '../services/cities.service';
 
@@ -42,7 +42,7 @@ describe('PagesComponent', () => {
   
   it('Init: Should call to cities service and then call to weather service', async () => {
 
-    const response: City[] = [];
+    const response: City[] = [{name: 'Cadiz'}, {name: 'Madrid'}];
 
     spyOn(citiesService, 'getCities').and.returnValue(of(response))
   
@@ -53,9 +53,9 @@ describe('PagesComponent', () => {
     expect(component.cities).toEqual(response);
   })
 
-  it('Should call to weather service', async () => {
+  it('Should call to weather service and call recursive', async () => {
 
-    const cities: City[] = [];
+    const cities: City[] = [{name: 'Cadiz'}, {name: 'Madrid'}];
 
     const response: Weather = {
       coord: {

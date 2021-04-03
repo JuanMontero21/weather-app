@@ -2,8 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 import { WeatherService } from './weather.service';
-// import { Observable, of } from 'rxjs';
-// import { environment } from '../../environments/environment';
 import { Weather } from '../models/weather.model';
 import { City } from '../models/city.model';
 
@@ -11,15 +9,13 @@ import { City } from '../models/city.model';
 describe('WeatherService', () => {
   let service: WeatherService;
   let httpClientSpy: { get: jasmine.Spy };
-  let httpClient: HttpClient;
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ],
       providers: [WeatherService, HttpClient]
     });
-    service = TestBed.inject(WeatherService);
-    httpClient = TestBed.inject(HttpClient);    
+    service = TestBed.inject(WeatherService);   
   });
 
   it('should be created', () => {
@@ -72,16 +68,7 @@ describe('WeatherService', () => {
       cod: 200
     };
     const cities: City[] = [{ name: 'Cadiz'}, {name: 'Madrid' }];
-  //  const weatherCityObservable: Observable<Weather> = of(weatherCityFromServe);
-  // console.log(weatherCityFromServe);
-  httpClientSpy.get.and.returnValue(weatherCityFromServe);
-    // const cities: City[] = [{ name: 'Cadiz'}, {name: 'Madrid' }];
-    // const _APPID = 'aae97860de78632108ecc73036d6d17c';
-    // let city: string;
-    // for (let item = 0; item < cities.length; item++) {
-    //   city = cities[Math.floor(Math.random() * cities.length)].name;
-    // }
-    // const _URL = `${environment.base_url_api}?q=${city}&appid=${_APPID}&units=metric`;
+    httpClientSpy.get.and.returnValue(weatherCityFromServe);
     service.getWeatherByCityName(cities).subscribe(response =>{
           expect(response).toEqual(weatherCityFromServe, 'expected weather')
     })
